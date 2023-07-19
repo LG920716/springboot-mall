@@ -1,5 +1,6 @@
 package com.ray.springmail.entity;
 
+import com.ray.springmail.constant.ProductCategory;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,7 +17,8 @@ public class Product {
     private String productName;
 
     @Column(name = "category")
-    private String category;
+    @Enumerated(EnumType.STRING)
+    private ProductCategory category;
 
     @Column(name = "image_url")
     private String imageurl;
