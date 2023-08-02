@@ -29,4 +29,15 @@ public class ProductController {
         Product product = productService.createProduct(productRequestDto);
         return ResponseEntity.ok(product);
     }
+
+    @PatchMapping("/products/{productId}")
+    public ResponseEntity<Product> updateProduct(@PathVariable Integer productId,
+                                                 @RequestBody @Valid ProductRequestDto productRequestDto){
+        if(productService.findById(productId) == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        Product product = productService.updateProduct(productId, productRequestDto);
+        return ResponseEntity.ok(product);
+    }
 }

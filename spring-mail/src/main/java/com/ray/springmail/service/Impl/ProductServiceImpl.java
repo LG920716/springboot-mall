@@ -33,4 +33,17 @@ public class ProductServiceImpl implements ProductService {
         product.setLastModifiedDate(ZonedDateTime.now());
         return productRepository.save(product);
     }
+
+    @Override
+    public Product updateProduct(int id, ProductRequestDto productRequestDto) {
+        Product product = productRepository.findByProductId(id);
+        product.setProductName(productRequestDto.getProductName());
+        product.setCategory(productRequestDto.getCategory());
+        product.setImageUrl(productRequestDto.getImageUrl());
+        product.setPrice(productRequestDto.getPrice());
+        product.setStock(productRequestDto.getStock());
+        product.setDescription(productRequestDto.getDescription());
+        product.setLastModifiedDate(ZonedDateTime.now());
+        return productRepository.save(product);
+    }
 }
