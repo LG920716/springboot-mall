@@ -1,13 +1,13 @@
 package com.ray.springmail.controller;
 
+import com.ray.springmail.dto.ProductRequestDto;
 import com.ray.springmail.entity.Product;
 import com.ray.springmail.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ProductController {
@@ -22,5 +22,11 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return  ResponseEntity.status(HttpStatus.OK).body(product);
+    }
+
+    @PostMapping("/products")
+    public ResponseEntity<Product> createProduct(@RequestBody @Valid ProductRequestDto productRequestDto){
+        Product product = productService.createProduct(productRequestDto);
+        return ResponseEntity.ok(product);
     }
 }

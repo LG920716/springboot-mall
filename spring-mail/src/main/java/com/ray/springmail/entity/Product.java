@@ -21,7 +21,7 @@ public class Product {
     private ProductCategory category;
 
     @Column(name = "image_url")
-    private String imageurl;
+    private String imageUrl;
 
     @Column(name = "price")
     private Integer price;
