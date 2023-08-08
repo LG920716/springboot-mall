@@ -46,4 +46,9 @@ public class ProductServiceImpl implements ProductService {
         product.setLastModifiedDate(ZonedDateTime.now());
         return productRepository.save(product);
     }
+
+    @Override
+    public void deleteProductById(int id) {
+        productRepository.deleteById(id);
+    }
 }
