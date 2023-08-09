@@ -1,5 +1,6 @@
 package com.ray.springmail.controller;
 
+import com.ray.springmail.constant.ProductCategory;
 import com.ray.springmail.dto.ProductRequestDto;
 import com.ray.springmail.entity.Product;
 import com.ray.springmail.service.ProductService;
@@ -9,11 +10,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @GetMapping("/products")
+    public ResponseEntity<List<Product>> getProducts(
+            @RequestParam(required = false) String productName,
+            @RequestParam(required = false) ProductCategory category
+    ) {
+        List<Product> products = productService.getProducts(productName, category);
+        return ResponseEntity.ok(products);
+    }
 
     @GetMapping("/products/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Integer id){
