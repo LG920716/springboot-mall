@@ -1,13 +1,15 @@
 package com.ray.springmail.service;
 
-import com.ray.springmail.constant.ProductCategory;
+import com.ray.springmail.dto.ProductQueryParams;
 import com.ray.springmail.dto.ProductRequestDto;
 import com.ray.springmail.entity.Product;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface ProductService {
-    List<Product> getProducts(String productName, ProductCategory productCategory);
+    Page<Product> getProducts(ProductQueryParams productQueryParams, Pageable pageable);
     Product findById(int id);
     Product createProduct(ProductRequestDto productRequestDto);
     Product updateProduct(int id, ProductRequestDto productRequestDto);

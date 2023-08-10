@@ -1,19 +1,18 @@
 package com.ray.springmail.service.Impl;
 
-import com.ray.springmail.constant.ProductCategory;
+import com.ray.springmail.dto.ProductQueryParams;
 import com.ray.springmail.dto.ProductRequestDto;
 import com.ray.springmail.entity.Product;
 import com.ray.springmail.repository.ProductRepository;
 import com.ray.springmail.service.ProductService;
+import com.ray.springmail.specifications.ProductSpecifications;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import org.springframework.data.domain.Pageable;
 import java.time.ZonedDateTime;
 import java.util.List;
-
-import static com.ray.springmail.specifications.ProductSpecifications.categoryEquals;
-import static com.ray.springmail.specifications.ProductSpecifications.productNameContains;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -22,17 +21,11 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
-    public List<Product> getProducts(String productName, ProductCategory productCategory) {
-        if (productName != null && productCategory != null) {
-            return productRepository.findAll(Specification.where(productNameContains(productName)).and(categoryEquals(productCategory)));
-        } else if (productName != null) {
-            return productRepository.findAll(Specification.where(productNameContains(productName)));
-        } else if (productCategory != null) {
-            return productRepository.findAll(Specification.where(categoryEquals(productCategory)));
-        } else {
-            return productRepository.findAll();
-        }
+    public Page<Product> getProducts(ProductQueryParams productQueryParams, Pageable pageable) {
+        return productRepository.findAll(ProductSpecifications.toSpecification(productQueryParams), pageable);
+//        return productPage.getContent();
     }
+
 
     @Override
     public Product findById(int id) {
