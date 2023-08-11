@@ -1,5 +1,6 @@
 package com.ray.springmail.controller;
 
+import com.ray.springmail.dto.UserLoginDto;
 import com.ray.springmail.dto.UserRequestDto;
 import com.ray.springmail.entity.User;
 import com.ray.springmail.service.UserService;
@@ -28,5 +29,12 @@ public class UserController {
     public ResponseEntity<User> register(@RequestBody @Valid UserRequestDto userRequestDto) {
         User user = userService.register(userRequestDto);
         return ResponseEntity.status(HttpStatus.OK).body(user);
+    }
+
+    @PostMapping("/user/login")
+    public ResponseEntity<User> login(@RequestBody @Valid UserLoginDto userLoginDto) {
+        User user = userService.login(userLoginDto);
+
+        return ResponseEntity.ok(user);
     }
 }
