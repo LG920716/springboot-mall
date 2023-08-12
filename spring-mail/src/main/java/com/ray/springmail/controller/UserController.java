@@ -16,7 +16,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/users/{userId}")
     public ResponseEntity<User> getUserByUserId(@PathVariable Integer userId) {
         User user = userService.getByUserId(userId);
         if (user == null){
@@ -25,13 +25,13 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
-    @PostMapping("/user/register")
+    @PostMapping("/users/register")
     public ResponseEntity<User> register(@RequestBody @Valid UserRequestDto userRequestDto) {
         User user = userService.register(userRequestDto);
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
-    @PostMapping("/user/login")
+    @PostMapping("/users/login")
     public ResponseEntity<User> login(@RequestBody @Valid UserLoginDto userLoginDto) {
         User user = userService.login(userLoginDto);
 

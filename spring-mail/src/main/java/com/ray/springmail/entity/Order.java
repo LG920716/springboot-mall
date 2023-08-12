@@ -1,26 +1,21 @@
 package com.ray.springmail.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import lombok.Data;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 
 @Data
-@Entity(name = "user")
-public class User {
-
+@Entity
+@Table(name = "orders")
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userId;
+    private Integer orderId;
 
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "password")
-    @JsonIgnore
-    private String password;
+    @Column(name = "total_amount")
+    private Integer totalAmount;
 
     @Column(name = "created_date")
     private ZonedDateTime createdDate;
@@ -28,4 +23,10 @@ public class User {
     @Column(name = "last_modified_date")
     private ZonedDateTime lastModifiedDate;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems;
 }
