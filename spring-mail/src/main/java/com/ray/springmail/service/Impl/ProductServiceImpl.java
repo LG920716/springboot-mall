@@ -59,6 +59,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public void updateStock(Integer productId, Integer quantity) {
+        Product product = productRepository.findByProductId(productId);
+        product.setStock(product.getStock() - quantity);
+        product.setLastModifiedDate(ZonedDateTime.now());
+        productRepository.save(product);
+    }
+
+    @Override
     public void deleteProductById(int id) {
         productRepository.deleteById(id);
     }

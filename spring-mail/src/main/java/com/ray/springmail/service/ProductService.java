@@ -13,5 +13,6 @@ public interface ProductService {
     Product findById(int id);
     Product createProduct(ProductRequestDto productRequestDto);
     Product updateProduct(int id, ProductRequestDto productRequestDto);
+    void updateStock(Integer productId, Integer quantity);
     void deleteProductById(int id);
 }
