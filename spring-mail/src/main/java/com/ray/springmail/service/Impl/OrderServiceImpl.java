@@ -17,6 +17,8 @@ import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -106,6 +108,13 @@ public class OrderServiceImpl implements OrderService {
             order.setOrderItems(orderItems);
         }
         return order;
+    }
+    @Override
+    public Page<Order> getOrderListByUserId(Integer userId, Pageable pageable) {
+        return orderRepository.findAll((root, query, criteriaBuilder) -> {
+            query.where(criteriaBuilder.equal(root.get("user").get("id"), userId));
+            return null;
+        }, pageable);
     }
 
 }
